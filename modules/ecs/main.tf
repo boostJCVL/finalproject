@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "cl_ecs_cluster" {
-    name = "cl_ecs_cluster"
+    name = "carlos-cluster"
     setting {
       name = "containerInsights"
       value = "enabled"
@@ -8,15 +8,15 @@ resource "aws_ecs_cluster" "cl_ecs_cluster" {
 }
 
 resource "aws_ecs_task_definition" "service" {
-    family = "oneboostedboy"
+    family = "carlos-service"
     network_mode = "bridge"
     requires_compatibilities = ["EC2"]
     task_role_arn = aws_iam_role.ecsTaskExecution_role.arn
     execution_role_arn = aws_iam_role.ecsTaskExecution_role.arn
     container_definitions = jsonencode([
         {
-            name = "first"
-            image = "450183644535.dkr.ecr.us-east-2.amazonaws.com/carlos-nclouds-repository:latest"
+            name = "carlos-service"
+            image = "450183644535.dkr.ecr.us-east-2.amazonaws.com/carlos:latest"
             memory = 200
             cpu = 200
             essential = true 
@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "service" {
 }
 
 resource "aws_ecs_service" "worker" {
-    name = "worker"
+    name = "carlos-service"
     cluster = aws_ecs_cluster.cl_ecs_cluster.id 
     task_definition = aws_ecs_task_definition.service.arn 
     desired_count = 2
@@ -39,7 +39,7 @@ resource "aws_ecs_service" "worker" {
 
     load_balancer {
         target_group_arn = var.autoscaleTGG 
-        container_name = "first"
+        container_name = "carlos-service"
         container_port = 80 #Change to 3000 if break?
   
       
