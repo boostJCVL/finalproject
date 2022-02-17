@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Multiplayer snake</title>
+		<link rel="stylesheet" type="text/css" href="/client/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/client/css/game.css">
+		<script src="/client/js/jquery-3.3.1.min.js"></script>
+		<script src="/client/js/bootstrap.bundle.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/client/js/cookies.js"></script>
+		<script src="/client/js/phaser.min.js"></script>
+	</head>
+	<body style="background-color: #555555">
+		<div id="snake-game"></div>
+		<script src="/client/js/game.js"></script>
+
+		<div id="menu" class="border border-dark rounded">
+			<form class="mx-2 my-2">
+				<h1 class="text-center">Multiplayer Snake</h1>
+				<div id="final-score" class="text-center">
+					<span class="badge badge-info">
+						Your final score:
+						<span id="total-score"></span>
+					</span>
+				</div>
+				<br>
+				<div class="form-group">
+					<input class="form-control" type="text" id="name" maxlength="16" placeholder="Name" value="Unnamed player"/>
+				</div>
+				<div class="mb-2">
+					<input class="form-control btn btn-success active" type="button" id="btn_play" value="Play"/>
+				</div>
+				<a href="https://github.com/AntonUden/snake-multiplayer/issues" target="_blank">Report a bug</a>
+			</form>
+		</div>
+
+		<div id="server-info" class="border border-dark">
+			<div id="player-info">
+				<div id="score" class="mx-1 my-1">
+					<span class="badge badge-light">
+						Score: 
+						<span id="player-score">?</span>
+					</span>
+				</div>
+				<span class="badge badge-light" id="position" class="mx-1 my-1"></span>
+				<br>
+			</div>
+			<div id="ping" class="mx-1 my-1">
+				<span id="ping-badge" class="badge badge-success">
+					Server ping: 
+					<span id="server-ping"></span>
+				</span>
+			</div>
+		</div>
+
+		<div id="leaderboard" class="border border-dark">
+			<div id="leaderboard-text" class="mx-4">
+				Leaderboard
+			</div>
+			
+			<div id="leaderboard-content" class="mx-2"></div>
+		</div>
+	</body>
+</html>
